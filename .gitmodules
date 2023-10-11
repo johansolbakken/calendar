@@ -1,0 +1,3 @@
+[submodule "calenderback/vendor/server"]
+	path = calenderback/vendor/server
+	url = git@github.com:johansolbakken/server.git

@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+  calenderback:
+    build: ./calenderback
+    ports:
+      - "8080:8080"
