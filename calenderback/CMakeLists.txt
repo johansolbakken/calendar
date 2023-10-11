@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(vendor/server)
 
-add_executable(calenderback src/main.cpp)
+file(GLOB_RECURSE SOURCES src/*.cpp)
+
+add_executable(calenderback ${SOURCES})
 target_link_libraries(calenderback server)
-target_include_directories(calenderback PUBLIC vendor/server/src)
+target_include_directories(calenderback PUBLIC src vendor/server/src)

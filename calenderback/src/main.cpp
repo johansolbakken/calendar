@@ -1,19 +1,7 @@
-#include <iostream>
-
-#include <knekt.h>
+#include "application.h"
 
 int main() {
-    Knekt::ServerSpecification serverSpec;
-    serverSpec.port = 8080;
-
-    Knekt::Server server(serverSpec);
-    server.get("/", [](Knekt::Request req) {
-        return Knekt::Response { Knekt::StatusCode::Ok, "Hello, World"};
-    });
-
-    while (true) {
-        server.update();
-    }
-
+    calender::Application app;
+    app.run();    
     return 0;
 }
