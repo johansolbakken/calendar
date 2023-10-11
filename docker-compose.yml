@@ -4,3 +4,15 @@ services:
     build: ./calenderback
     ports:
       - "8080:8080"
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: calender
+    ports:
+      - "5432:5432"
+  adminer:
+    image: adminer
+    ports:
+      - "8082:8080"

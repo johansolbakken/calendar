@@ -1,15 +1,20 @@
 #include "application.h"
 
 #include <knekt.h>
+#include <iostream>
+
+#include "db.h"
 
 namespace calender
 {
     Application::Application()
     {
+        Database::init();
     }
 
     Application::~Application()
     {
+        Database::shutdown();
     }
 
     void Application::run()
@@ -21,6 +26,8 @@ namespace calender
         server.get("/", [](Knekt::Request req) { 
             return Knekt::Response{Knekt::StatusCode::Ok, "Hello, World"}; 
         });
+
+        std::cout << "Server running on port " << serverSpec.port << std::endl;
 
         while (true)
         {

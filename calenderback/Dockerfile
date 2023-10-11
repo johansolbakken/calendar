@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     libcurl4-openssl-dev \
-    python3 
+    python3 \
+    libpq-dev
 
 RUN mkdir /calenderback
 WORKDIR /calenderback
