@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace calender
 {
     class Database
@@ -11,6 +13,9 @@ namespace calender
         static Database &instance();
         static void init();
         static void shutdown();
+
+        void exec0(const std::string &query);
+        void commit();
 
     private:
         Database();

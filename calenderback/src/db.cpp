@@ -22,19 +22,22 @@ namespace calender
     }
 
     static pqxx::connection *s_connection = nullptr;
-    static pqxx::work *s_work = nullptr;
 
     Database::Database()
     {
         // Initialize the connection
         s_connection = new pqxx::connection("hostaddr=127.0.0.1 port=5432 dbname=calender user=postgres password=postgres");
-        s_work = new pqxx::work(*s_connection);
     }
 
     Database::~Database()
     {
-        delete s_work;
         delete s_connection;
     }
 
+    void Database::exec0(const std::string &query)
+    {
+        pqxx::work txn(*s_connection);
+        txn.exec0(query);
+        txn.commit();
+    }
 }
