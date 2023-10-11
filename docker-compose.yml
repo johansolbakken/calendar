@@ -3,7 +3,15 @@ services:
   calenderback:
     build: ./calenderback
     ports:
-      - "8080:8080"
+      - "8085:8085"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=calender
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
   db:
     image: postgres:latest
     environment:
@@ -12,6 +20,8 @@ services:
       POSTGRES_DB: calender
     ports:
       - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
   adminer:
     image: adminer
     ports:

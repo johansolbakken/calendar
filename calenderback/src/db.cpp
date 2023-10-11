@@ -2,6 +2,8 @@
 
 #include <pqxx/pqxx>
 
+#include <sstream>
+
 namespace calender
 {
     static Database *s_instance = nullptr;
@@ -11,9 +13,9 @@ namespace calender
         return *s_instance;
     }
 
-    void Database::init()
+    void Database::init(const DatabaseSpecification &spec)
     {
-        s_instance = new Database();
+        s_instance = new Database(spec);
     }
 
     void Database::shutdown()
@@ -23,10 +25,13 @@ namespace calender
 
     static pqxx::connection *s_connection = nullptr;
 
-    Database::Database()
+    Database::Database(const DatabaseSpecification &spec)
+        : m_spec(spec)
     {
-        // Initialize the connection
-        s_connection = new pqxx::connection("hostaddr=127.0.0.1 port=5432 dbname=calender user=postgres password=postgres");
+        std::stringstream builder;
+        builder << "postgres://" << m_spec.user << ":" << m_spec.password << "@" << m_spec.host << ":" << m_spec.port << "/"
+                << m_spec.dbname;
+        s_connection = new pqxx::connection(builder.str());
     }
 
     Database::~Database()
